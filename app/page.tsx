@@ -768,7 +768,7 @@ export default function LaunchPage() {
             className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-4 leading-tight"
             style={{ fontFamily: 'var(--font-display)' }}
           >
-            <ChromeText>The First</ChromeText>
+            <ChromeText>24HR</ChromeText>
             <br />
             <span className="text-[#04D9FF]">MVP DAO</span>
           </h1>
