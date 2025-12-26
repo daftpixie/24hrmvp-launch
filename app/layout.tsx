@@ -32,8 +32,12 @@ const spaceMono = Space_Mono({
   weight: ['400', '700'],
 });
 
+// Base URL for absolute paths
+const BASE_URL = 'https://launch.24hrmvp.xyz';
+
 // Metadata
 export const metadata: Metadata = {
+  metadataBase: new URL(BASE_URL),
   title: '24HRMVP | The MVP DAO - Community Ideas to Products in 24 Hours',
   description: 'Join the first community-governed platform where software ideas become production-ready MVPs in 24 hours. Vote on ideas, earn HOPE tokens, and shape the future of building.',
   keywords: [
@@ -51,10 +55,12 @@ export const metadata: Metadata = {
   authors: [{ name: '24HRMVP Team' }],
   creator: 'Matty Adams',
   publisher: '24HRMVP',
+  
+  // OpenGraph - Primary social sharing
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://launch.24hrmvp.xyz',
+    url: BASE_URL,
     siteName: '24HRMVP',
     title: '24HRMVP | The First MVP DAO',
     description: 'Where community ideas become production-ready products in 24 hours. Join 500 beta testers shaping the future.',
@@ -63,18 +69,30 @@ export const metadata: Metadata = {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: '24HRMVP - The 24HRMVP DAO',
+        alt: '24HRMVP Launch - The First MVP DAO',
+        type: 'image/png',
       },
     ],
   },
+  
+  // Twitter/X Card
   twitter: {
     card: 'summary_large_image',
     site: '@24hrmvp',
     creator: '@24hrmvp',
-    title: '24HRMVP | The 24HRMVP DAO',
+    title: '24HRMVP | The First MVP DAO',
     description: 'Where community ideas become production-ready products in 24 hours.',
-    images: ['/og-image.png'],
+    images: [
+      {
+        url: '/twitter-card.png',
+        width: 1200,
+        height: 628,
+        alt: '24HRMVP Launch - Join 500 Beta Testers',
+      },
+    ],
   },
+  
+  // Search engine directives
   robots: {
     index: true,
     follow: true,
@@ -86,28 +104,48 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  
+  // Icons & Favicons
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
     shortcut: '/favicon-16x16.png',
-    apple: '/apple-touch-icon.png',
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
   },
+  
+  // Web App Manifest
   manifest: '/site.webmanifest',
+  
   // Farcaster Mini App Frame Metadata
   other: {
+    // Farcaster Frame v2
     'fc:frame': JSON.stringify({
       version: 'next',
-      imageUrl: 'https://launch.24hrmvp.xyz/og-image.png',
+      imageUrl: `${BASE_URL}/farcaster-frame.png`,
       button: {
         title: '🚀 Join Beta',
         action: {
           type: 'launch_frame',
           name: '24HRMVP Launch',
-          url: 'https://launch.24hrmvp.xyz',
-          splashImageUrl: 'https://launch.24hrmvp.xyz/splash.png',
+          url: BASE_URL,
+          splashImageUrl: `${BASE_URL}/splash.png`,
           splashBackgroundColor: '#0B192A',
         },
       },
     }),
+    // Additional OG tags for specific platforms
+    'og:image:width': '1200',
+    'og:image:height': '630',
+    'og:image:type': 'image/png',
+    // Discord-specific (uses OG but prefers larger images)
+    'discord:image': `${BASE_URL}/discord-embed.png`,
+    // LinkedIn (uses OG)
+    'linkedin:image': `${BASE_URL}/linkedin-share.png`,
   },
 };
 
@@ -117,6 +155,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
+  colorScheme: 'dark',
 };
 
 export default function RootLayout({
