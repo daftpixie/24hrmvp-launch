@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Orbitron, Space_Grotesk, DM_Sans, Space_Mono } from 'next/font/google';
+import { PlausibleMultiDomain } from '@/components/analytics/PlausibleProvider';
 import './globals.css';
 
 // Font Configuration
@@ -138,13 +139,12 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://auth.farcaster.xyz" />
+        {/* Preconnect to self-hosted analytics */}
+        <link rel="preconnect" href="https://analytics.24hrmvp.xyz" />
         
-        {/* Plausible Analytics (privacy-first) */}
-        <script 
-          defer 
-          data-domain="launch.24hrmvp.xyz" 
-          src="https://plausible.io/js/script.js"
-        />
+        {/* Plausible Analytics (self-hosted, privacy-first) */}
+        {/* Tracks to both launch.24hrmvp.xyz and all.24hrmvp.xyz aggregate dashboard */}
+        <PlausibleMultiDomain domains={['launch.24hrmvp.xyz', 'all.24hrmvp.xyz']} />
       </head>
       <body 
         className={`${dmSans.className} antialiased`}
