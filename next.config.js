@@ -112,6 +112,8 @@ const nextConfig = {
     NEXT_PUBLIC_PUNKS_URL: process.env.NEXT_PUBLIC_PUNKS_URL || 'https://punks.24hrmvp.xyz',
     NEXT_PUBLIC_MAIN_URL: process.env.NEXT_PUBLIC_MAIN_URL || 'https://24hrmvp.xyz',
     NEXT_PUBLIC_LAUNCH_DATE: process.env.NEXT_PUBLIC_LAUNCH_DATE || '2025-12-26T10:00:00Z',
+    // Google Sheets webhook for beta signups
+    NEXT_PUBLIC_GSHEET_WEBHOOK_URL: process.env.NEXT_PUBLIC_GSHEET_WEBHOOK_URL || '',
   },
 };
 
