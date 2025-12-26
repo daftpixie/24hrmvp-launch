@@ -356,22 +356,83 @@ function ProgressBar({ current, total }: { current: number; total: number }) {
   );
 }
 
-// Signup Form
+// Signup Form - Integrated with Google Sheets
 function SignupForm() {
   const [email, setEmail] = useState('');
   const [discord, setDiscord] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError('');
+    
+    // Validation
+    if (!email.trim()) {
+      setError('Email is required');
+      return;
+    }
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError('Please enter a valid email');
+      return;
+    }
+
     setLoading(true);
     
-    // Simulate API call - replace with actual endpoint
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    setLoading(false);
-    setSubmitted(true);
+    try {
+      // Google Apps Script Webhook URL
+      const webhookUrl = process.env.NEXT_PUBLIC_GSHEET_WEBHOOK_URL;
+      
+      if (!webhookUrl) {
+        console.error('NEXT_PUBLIC_GSHEET_WEBHOOK_URL is not configured');
+        setError('Signup temporarily unavailable');
+        setLoading(false);
+        return;
+      }
+
+      // Send to Google Sheets via Apps Script
+      await fetch(webhookUrl, {
+        method: 'POST',
+        mode: 'no-cors', // Required for Google Apps Script
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email.trim().toLowerCase(),
+          discord: discord.trim(),
+          source: 'launch.24hrmvp.xyz',
+          userAgent: typeof window !== 'undefined' ? navigator.userAgent : 'SSR',
+          timestamp: new Date().toISOString()
+        }),
+      });
+      
+      // With no-cors mode, we can't read the response
+      // Assume success if no error thrown
+      setLoading(false);
+      setSubmitted(true);
+      
+      // Track analytics event
+      if (typeof window !== 'undefined' && (window as any).plausible) {
+        (window as any).plausible('Beta Signup Completed', {
+          props: { hasDiscord: !!discord.trim() }
+        });
+      }
+      
+    } catch (err) {
+      console.error('Signup error:', err);
+      setError('Network error. Please try again.');
+      setLoading(false);
+      
+      // Track error
+      if (typeof window !== 'undefined' && (window as any).plausible) {
+        (window as any).plausible('Beta Signup Error', {
+          props: { error: err instanceof Error ? err.message : 'Unknown' }
+        });
+      }
+    }
   };
 
   if (submitted) {
@@ -397,17 +458,32 @@ function SignupForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {/* Error Message */}
+      {error && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="p-3 rounded-lg bg-[#FF5C00]/10 border border-[#FF5C00]/30 text-sm text-[#FF5C00]"
+        >
+          {error}
+        </motion.div>
+      )}
+      
       <div>
         <input
           type="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            if (error) setError('');
+          }}
           placeholder="your@email.com"
           required
+          disabled={loading}
           className="w-full px-5 py-4 rounded-xl bg-[#1E1E1E]/80 border border-[#04D9FF]/30 
                      text-white placeholder:text-[#808080] font-mono
                      focus:outline-none focus:border-[#04D9FF] focus:ring-2 focus:ring-[#04D9FF]/20
-                     transition-all duration-300"
+                     transition-all duration-300 disabled:opacity-50"
         />
       </div>
       <div>
@@ -416,10 +492,11 @@ function SignupForm() {
           value={discord}
           onChange={(e) => setDiscord(e.target.value)}
           placeholder="Discord handle (optional)"
+          disabled={loading}
           className="w-full px-5 py-4 rounded-xl bg-[#1E1E1E]/80 border border-[#04D9FF]/30 
                      text-white placeholder:text-[#808080] font-mono
                      focus:outline-none focus:border-[#04D9FF] focus:ring-2 focus:ring-[#04D9FF]/20
-                     transition-all duration-300"
+                     transition-all duration-300 disabled:opacity-50"
         />
       </div>
       <GlowButton 
