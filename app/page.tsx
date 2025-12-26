@@ -384,14 +384,8 @@ function SignupForm() {
     
     try {
       // Google Apps Script Webhook URL
-      const webhookUrl = process.env.NEXT_PUBLIC_GSHEET_WEBHOOK_URL;
-      
-      if (!webhookUrl) {
-        console.error('NEXT_PUBLIC_GSHEET_WEBHOOK_URL is not configured');
-        setError('Signup temporarily unavailable');
-        setLoading(false);
-        return;
-      }
+      // Google Apps Script Webhook URL (hardcoded - public endpoint)
+      const webhookUrl = 'https://script.google.com/macros/s/AKfycbxYl2U_ZrQqxzOF6p1DM8cWQ3SkxTFnOV4ODDn8okvCrDBJRYkrvk9tncKDQ0gRnUmWuA/exec';
 
       // Send to Google Sheets via Apps Script
       await fetch(webhookUrl, {
