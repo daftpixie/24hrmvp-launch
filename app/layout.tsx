@@ -33,7 +33,7 @@ const spaceMono = Space_Mono({
 
 // Metadata
 export const metadata: Metadata = {
-  title: '24HRMVP | The First MVP DAO - Community Ideas to Products in 24 Hours',
+  title: '24HRMVP | The MVP DAO - Community Ideas to Products in 24 Hours',
   description: 'Join the first community-governed platform where software ideas become production-ready MVPs in 24 hours. Vote on ideas, earn HOPE tokens, and shape the future of building.',
   keywords: [
     '24HRMVP',
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: '24HRMVP - The First MVP DAO',
+        alt: '24HRMVP - The 24HRMVP DAO',
       },
     ],
   },
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@24hrmvp',
     creator: '@24hrmvp',
-    title: '24HRMVP | The First MVP DAO',
+    title: '24HRMVP | The 24HRMVP DAO',
     description: 'Where community ideas become production-ready products in 24 hours.',
     images: ['/og-image.png'],
   },

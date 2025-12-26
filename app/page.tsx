@@ -46,7 +46,7 @@ const PRODUCTS = [
     tagline: 'Self-Custody Doge & Doginals',
     description: 'The wallet Dogecoin deserves. Browser extension with full Doginals support.',
     icon: Wallet,
-    features: ['HD Wallets (BIP44)', 'Doginals NFTs', 'dApp Integration', 'AES-256 Encrypted'],
+    features: ['HD Wallets', 'Doginals NFTs', 'dApp Integration', 'AES-256 Encrypted'],
     color: '#FB48C4',
     url: '#'
   },
@@ -54,9 +54,9 @@ const PRODUCTS = [
     id: 'nft',
     name: 'Cypherpunks NFT',
     tagline: 'Governance Rights On-Chain Forever',
-    description: '1,000 limited collection. 10x voting power. Treasury access. Advisory seats.',
+    description: '1,000 limited collection. Voting power. Treasury access. Advisory seats.',
     icon: Shield,
-    features: ['10x Voting Power', 'DAO Treasury Access', 'Advisory Eligibility', 'On-Chain Forever'],
+    features: ['Voting Power', 'DAO Treasury Access', 'Advisory Eligibility', 'On-Chain Forever'],
     color: '#8A00C4',
     url: 'https://punks.24hrmvp.xyz'
   }
@@ -206,7 +206,7 @@ function GlowButton({
   onClick?: () => void;
   className?: string;
 }) {
-  const baseClasses = "relative px-8 py-4 font-semibold text-lg rounded-full transition-all duration-300 overflow-hidden group";
+  const baseClasses = "inline-flex items-center justify-center gap-2 px-8 py-4 font-semibold text-lg rounded-full transition-all duration-300 overflow-hidden";
   
   const variants = {
     primary: "bg-gradient-to-r from-[#04D9FF] to-[#00B4D8] text-[#0B192A] hover:shadow-[0_0_30px_rgba(4,217,255,0.5)]",
@@ -218,27 +218,34 @@ function GlowButton({
     background: 'linear-gradient(135deg, #A8A9AD 0%, #E3E3E3 25%, #C0C0C3 50%, #E3E3E3 75%, #A8A9AD 100%)',
   } : {};
 
-  const Component = href ? 'a' : 'button';
-  
+  const content = (
+    <>
+      {children}
+    </>
+  );
+
+  if (href) {
+    const isExternal = href.startsWith('http');
+    return (
+      <a
+        href={href}
+        className={`${baseClasses} ${variants[variant]} ${className}`}
+        style={chromeStyle}
+        {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+      >
+        {content}
+      </a>
+    );
+  }
+
   return (
-    <Component
-      href={href}
+    <button
       onClick={onClick}
       className={`${baseClasses} ${variants[variant]} ${className}`}
       style={chromeStyle}
     >
-      <span className="relative z-10 flex items-center gap-2">
-        {children}
-      </span>
-      {variant === 'primary' && (
-        <motion.div
-          className="absolute inset-0 bg-white/20"
-          initial={{ x: '-100%', skewX: '-20deg' }}
-          whileHover={{ x: '200%' }}
-          transition={{ duration: 0.6 }}
-        />
-      )}
-    </Component>
+      {content}
+    </button>
   );
 }
 
@@ -820,7 +827,7 @@ export default function LaunchPage() {
           <SectionHeader
             badge="Ecosystem"
             title="Three Products. One Vision."
-            subtitle="A complete Web3 stack built by a solo architect in 3 months. What usually takes teams of 15+ over a year."
+            subtitle="A complete Web3 stack built by a solo architect in 3 weeks. What usually takes teams of 15+ over a year."
           />
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -987,9 +994,18 @@ export default function LaunchPage() {
           </div>
 
           <div className="text-center mt-8">
-            <GlowButton variant="secondary" href="#affiliate-signup">
+            <GlowButton variant="secondary" href="#beta">
               Become an Affiliate <ArrowRight className="w-5 h-5" />
             </GlowButton>
+            {/* Neon Green Heart */}
+            <div className="mt-6">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" className="mx-auto text-[#2CFF05]">
+                <path 
+                  d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" 
+                  fill="currentColor"
+                />
+              </svg>
+            </div>
           </div>
         </div>
       </section>
