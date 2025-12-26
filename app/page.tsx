@@ -206,7 +206,7 @@ function GlowButton({
   onClick?: () => void;
   className?: string;
 }) {
-  const baseClasses = "inline-flex items-center justify-center gap-2 px-8 py-4 font-semibold text-lg rounded-full transition-all duration-300 overflow-hidden";
+  const baseClasses = "inline-flex items-center justify-center gap-2 px-5 sm:px-8 py-3 sm:py-4 font-semibold text-base sm:text-lg rounded-full transition-all duration-300 overflow-hidden max-w-full";
   
   const variants = {
     primary: "bg-gradient-to-r from-[#04D9FF] to-[#00B4D8] text-[#0B192A] hover:shadow-[0_0_30px_rgba(4,217,255,0.5)]",
@@ -299,14 +299,14 @@ function CountdownTimer() {
     <div className="flex flex-col items-center">
       <div className="relative">
         <div 
-          className="w-20 h-24 md:w-24 md:h-28 rounded-xl flex items-center justify-center"
+          className="w-16 h-20 sm:w-20 sm:h-24 md:w-24 md:h-28 rounded-xl flex items-center justify-center"
           style={{
             background: 'linear-gradient(180deg, rgba(4, 217, 255, 0.1) 0%, rgba(4, 217, 255, 0.05) 100%)',
             border: '1px solid rgba(4, 217, 255, 0.3)',
             boxShadow: '0 0 30px rgba(4, 217, 255, 0.1), inset 0 0 20px rgba(4, 217, 255, 0.05)',
           }}
         >
-          <span className="font-mono text-4xl md:text-5xl font-bold text-[#04D9FF]">
+          <span className="font-mono text-2xl sm:text-4xl md:text-5xl font-bold text-[#04D9FF]">
             {String(value).padStart(2, '0')}
           </span>
         </div>
@@ -318,13 +318,13 @@ function CountdownTimer() {
   );
 
   return (
-    <div className="flex gap-3 md:gap-6 justify-center">
+    <div className="flex gap-2 sm:gap-3 md:gap-6 justify-center">
       <TimeBlock value={countdown.days} label="Days" />
-      <div className="flex items-center text-[#04D9FF] text-3xl font-bold">:</div>
+      <div className="flex items-center text-[#04D9FF] text-xl sm:text-3xl font-bold">:</div>
       <TimeBlock value={countdown.hours} label="Hours" />
-      <div className="flex items-center text-[#04D9FF] text-3xl font-bold">:</div>
+      <div className="flex items-center text-[#04D9FF] text-xl sm:text-3xl font-bold">:</div>
       <TimeBlock value={countdown.minutes} label="Min" />
-      <div className="flex items-center text-[#04D9FF] text-3xl font-bold">:</div>
+      <div className="flex items-center text-[#04D9FF] text-xl sm:text-3xl font-bold">:</div>
       <TimeBlock value={countdown.seconds} label="Sec" />
     </div>
   );
@@ -612,7 +612,8 @@ export default function LaunchPage() {
                 onClick={() => setShowPrivacy(false)}
                 className="absolute top-4 right-4 text-[#808080] hover:text-white transition-colors"
               >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+>
                   <path d="M18 6L6 18M6 6l12 12" />
                 </svg>
               </button>
@@ -859,7 +860,7 @@ export default function LaunchPage() {
 
           <div className="grid lg:grid-cols-5 gap-6 items-start">
             {/* Tiers - takes 2 columns */}
-            <div className="lg:col-span-2 grid grid-cols-2 gap-4">
+            <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
               {BETA_TIERS.map((tier) => (
                 <BetaTierCard key={tier.tier} tier={tier} />
               ))}
@@ -1137,17 +1138,22 @@ export default function LaunchPage() {
       {/* ================================================================== */}
       {/* FOOTER CTA */}
       {/* ================================================================== */}
-      <section className="relative py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto text-center">
+      <section className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        {/* Background Radial */}
+        <div 
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-20 pointer-events-none"
+          style={{
+            background: 'radial-gradient(circle, #04D9FF 0%, transparent 70%)',
+          }}
+        />
+
+        <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
           >
-            <h2 
-              className="text-4xl md:text-5xl font-bold text-white mb-6"
-              style={{ fontFamily: 'var(--font-display)' }}
-            >
+            <h2 className="text-4xl md:text-5xl font-black mb-6">
               Ready to <ChromeText>Build the Future?</ChromeText>
             </h2>
             <p className="text-xl text-[#B0B0B0] mb-8">
