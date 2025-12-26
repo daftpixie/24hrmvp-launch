@@ -905,7 +905,7 @@ export default function LaunchPage() {
               >
                 <div className="w-full bg-[#0B192A] rounded-2xl overflow-hidden">
                   <img 
-                    src="/Cypherpunks_Examples.png" 
+                    src="/Cypherpunks_Examples.PNG" 
                     alt="Cypherpunks NFT Collection Preview"
                     className="w-full h-auto"
                   />
