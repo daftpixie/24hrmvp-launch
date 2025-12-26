@@ -25,7 +25,7 @@ interface CountdownTime {
 // CONSTANTS
 // ============================================================================
 
-const LAUNCH_DATE = new Date('2025-12-26T10:00:00Z');
+const LAUNCH_DATE = new Date('2025-12-31T05:00:00Z'); // Midnight EST
 const TOTAL_BETA_SPOTS = 50;
 const CURRENT_SIGNUPS = 0; // Dynamic in production
 
@@ -80,7 +80,7 @@ const BETA_TIERS = [
 ];
 
 const ROADMAP = [
-  { phase: 1, title: 'Beta Launch', date: 'Dec 26, 2025', status: 'current', icon: Zap, items: ['Launch Page Live', 'Beta Recruitment', 'Community Formation'] },
+  { phase: 1, title: 'Beta Launch', date: 'Dec 31, 2025', status: 'current', icon: Zap, items: ['Launch Page Live', 'Beta Recruitment', 'Community Formation'] },
   { phase: 2, title: 'NFT Mint', date: 'Jan 2026', status: 'upcoming', icon: Shield, items: ['Cypherpunks Mint', 'Governance Setup', 'Advisory Council'] },
   { phase: 3, title: 'Smart Contracts', date: 'Mar 2026', status: 'upcoming', icon: Code, items: ['HOPE Token Launch', 'On-chain DAO', 'Multi-sig Treasury'] },
   { phase: 4, title: 'Public Launch', date: 'May 2026', status: 'upcoming', icon: Rocket, items: ['Full Platform', 'Autonomous DAO', 'First MVPs Shipped'] }
@@ -767,7 +767,7 @@ export default function LaunchPage() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FB48C4] opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#FB48C4]"></span>
               </span>
-              Launching December 26, 2025
+              Launching December 31, 2025
             </span>
           </div>
 
