@@ -32,12 +32,14 @@ const spaceMono = Space_Mono({
   weight: ['400', '700'],
 });
 
-// Base URL for absolute paths
+// Base URL for absolute paths - CRITICAL for social sharing
 const BASE_URL = 'https://launch.24hrmvp.xyz';
 
 // Metadata
 export const metadata: Metadata = {
+  // CRITICAL: metadataBase converts relative URLs to absolute
   metadataBase: new URL(BASE_URL),
+  
   title: '24HRMVP | The MVP DAO - Community Ideas to Products in 24 Hours',
   description: 'Join the first community-governed platform where software ideas become production-ready MVPs in 24 hours. Vote on ideas, earn HOPE tokens, and shape the future of building.',
   keywords: [
@@ -56,20 +58,21 @@ export const metadata: Metadata = {
   creator: 'Matty Adams',
   publisher: '24HRMVP',
   
-  // OpenGraph - Primary social sharing
+  // OpenGraph - Primary social sharing (Facebook, LinkedIn, Discord)
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: BASE_URL,
     siteName: '24HRMVP',
-    title: '24HRMVP | The 24HRMVP DAO',
+    title: '24HRMVP | The MVP DAO',
     description: 'Where community ideas become production-ready products in 24 hours. Join beta testers shaping the future.',
     images: [
       {
-        url: '/og-image.png', // Ensure file in /public is named "og-image.png"
+        url: `${BASE_URL}/og-image.png`,
+        secureUrl: `${BASE_URL}/og-image.png`,
         width: 1200,
         height: 630,
-        alt: '24HRMVP Launch - The 24HRMVP DAO',
+        alt: '24HRMVP Launch - The MVP DAO',
         type: 'image/png',
       },
     ],
@@ -80,38 +83,14 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@24hrmvp',
     creator: '@24hrmvp',
-    title: '24HRMVP | The 24HRMVP DAO',
+    title: '24HRMVP | The MVP DAO',
     description: 'Where community ideas become production-ready products in 24 hours.',
-    images: [
-      {
-        url: '/twitter-card.png', // Ensure file in /public is named "twitter-card.png"
-        width: 1200,
-        height: 628,
-        alt: '24HRMVP Launch - Join Beta Testers',
-      },
-      // Fallback/Secondary image if large fails or for other contexts
-      {
-        url: '/twitter-summary.png', 
-        width: 500, // Assuming square/smaller format based on filename
-        height: 500,
-        alt: '24HRMVP Logo',
-      },
-    ],
+    images: {
+      url: `${BASE_URL}/twitter-card.png`,
+      alt: '24HRMVP Launch - Join Beta Testers',
+    },
   },
   
-  // PWA / Mobile App Capabilities
-  appleWebApp: {
-    capable: true,
-    title: '24HRMVP',
-    statusBarStyle: 'black-translucent',
-    startupImage: [
-      {
-        url: '/splash.png',
-        media: '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)',
-      },
-    ],
-  },
-
   // Search engine directives
   robots: {
     index: true,
@@ -125,23 +104,14 @@ export const metadata: Metadata = {
     },
   },
   
-  // Icons & Favicons
+  // Icons & Favicons - Using only files that exist
   icons: {
-    icon: [
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
-    ],
-    shortcut: '/favicon-16x16.png',
-    apple: [
-      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
-    ],
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico', // Fallback until you add apple-touch-icon.png
   },
   
-  // Web App Manifest
-  manifest: '/site.webmanifest',
-  
-  // Farcaster & Custom Platform Metadata
+  // Farcaster Mini App Frame Metadata
   other: {
     // Farcaster Frame v2
     'fc:frame': JSON.stringify({
@@ -158,12 +128,6 @@ export const metadata: Metadata = {
         },
       },
     }),
-    // REMOVED DUPLICATE og:* tags here to avoid conflicts with openGraph object above
-    
-    // Discord-specific (uses OG but explicitly defined here for safety)
-    'discord:image': `${BASE_URL}/discord-embed.png`,
-    // LinkedIn
-    'linkedin:image': `${BASE_URL}/linkedin-share.png`,
   },
 };
 
@@ -200,7 +164,6 @@ export default function RootLayout({
         <link rel="preconnect" href="https://analytics.24hrmvp.xyz" />
         
         {/* Plausible Analytics (self-hosted, privacy-first) */}
-        {/* Tracks to both launch.24hrmvp.xyz and all.24hrmvp.xyz aggregate dashboard */}
         <PlausibleMultiDomain domains={['launch.24hrmvp.xyz', 'all.24hrmvp.xyz']} />
       </head>
       <body 
