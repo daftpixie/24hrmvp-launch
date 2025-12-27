@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     description: 'Where community ideas become production-ready products in 24 hours. Join beta testers shaping the future.',
     images: [
       {
-        url: '/og-image.png',
+        url: '/og-image.png', // Ensure file in /public is named "og-image.png"
         width: 1200,
         height: 630,
         alt: '24HRMVP Launch - The 24HRMVP DAO',
@@ -84,14 +84,34 @@ export const metadata: Metadata = {
     description: 'Where community ideas become production-ready products in 24 hours.',
     images: [
       {
-        url: '/twitter-card.png',
+        url: '/twitter-card.png', // Ensure file in /public is named "twitter-card.png"
         width: 1200,
         height: 628,
         alt: '24HRMVP Launch - Join Beta Testers',
       },
+      // Fallback/Secondary image if large fails or for other contexts
+      {
+        url: '/twitter-summary.png', 
+        width: 500, // Assuming square/smaller format based on filename
+        height: 500,
+        alt: '24HRMVP Logo',
+      },
     ],
   },
   
+  // PWA / Mobile App Capabilities
+  appleWebApp: {
+    capable: true,
+    title: '24HRMVP',
+    statusBarStyle: 'black-translucent',
+    startupImage: [
+      {
+        url: '/splash.png',
+        media: '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)',
+      },
+    ],
+  },
+
   // Search engine directives
   robots: {
     index: true,
@@ -121,7 +141,7 @@ export const metadata: Metadata = {
   // Web App Manifest
   manifest: '/site.webmanifest',
   
-  // Farcaster Mini App Frame Metadata
+  // Farcaster & Custom Platform Metadata
   other: {
     // Farcaster Frame v2
     'fc:frame': JSON.stringify({
@@ -138,13 +158,11 @@ export const metadata: Metadata = {
         },
       },
     }),
-    // Additional OG tags for specific platforms
-    'og:image:width': '1200',
-    'og:image:height': '630',
-    'og:image:type': 'image/png',
-    // Discord-specific (uses OG but prefers larger images)
+    // REMOVED DUPLICATE og:* tags here to avoid conflicts with openGraph object above
+    
+    // Discord-specific (uses OG but explicitly defined here for safety)
     'discord:image': `${BASE_URL}/discord-embed.png`,
-    // LinkedIn (uses OG)
+    // LinkedIn
     'linkedin:image': `${BASE_URL}/linkedin-share.png`,
   },
 };
