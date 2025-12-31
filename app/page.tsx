@@ -25,7 +25,7 @@ interface CountdownTime {
 // CONSTANTS
 // ============================================================================
 
-const LAUNCH_DATE = new Date('2025-12-31T05:00:00Z'); // Midnight EST
+const LAUNCH_DATE = new Date('2025-01-01T05:00:00Z'); // Midnight EST
 const TOTAL_BETA_SPOTS = 50;
 const CURRENT_SIGNUPS = 0; // Dynamic in production
 
@@ -1202,6 +1202,34 @@ export default function LaunchPage() {
                 </div>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ================================================================== */}
+      {/* NEWSLETTER SECTION */}
+      {/* ================================================================== */}
+      <section className="relative py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto">
+          <SectionHeader
+            badge="Newsletter"
+            title="Stay in the Loop"
+            subtitle="Get the latest updates on builds, votes, and drops directly to your inbox."
+          />
+          <div className="flex justify-center">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="relative w-full max-w-[480px] h-[360px] rounded-2xl overflow-hidden border border-[#04D9FF]/30 shadow-[0_0_30px_rgba(4,217,255,0.1)] bg-[#1E1E1E]"
+            >
+              <iframe 
+                src="https://paragraph.com/@24hrmvp/embed" 
+                className="w-full h-full border-0"
+                scrolling="no"
+                title="24HRMVP Newsletter"
+              />
+            </motion.div>
           </div>
         </div>
       </section>
